@@ -20,6 +20,11 @@ function html() {
         .pipe(gulp.dest('dist'))
 }
 
+function css() {
+    return gulp.src('app/*.css')
+        .pipe(gulp.dest('dist'))
+}
+
 function images() {
     return gulp.src('app/images/**/*.+(png|jpg|gif|svg)')
         .pipe(imagemin())
@@ -27,4 +32,4 @@ function images() {
 }
 
 
-exports.default = gulp.series(html, js, images)
+exports.default = gulp.series(html, css, js, images)
