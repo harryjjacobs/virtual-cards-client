@@ -1,0 +1,19 @@
+{
+  "name": "virtual_cards_client",
+  "version": "0.0.1",
+  "description": "Multiplayer Virtual Card Game",
+  "main": "app.js",
+  "scripts": {
+    "test": "test",
+    "gulp": "gulp",
+    "minify": "gulp minify"
+  },
+  "author": "harryjjacobs",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-imagemin": "^3.0.0",
+    "gulp-rollup": "^2.17.0",
+    "gulp-useref": "^4.0.1"
+  }
+}
