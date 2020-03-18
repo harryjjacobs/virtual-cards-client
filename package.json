@@ -2,6 +2,7 @@
   "name": "virtual_cards_client",
   "version": "0.0.1",
   "description": "Multiplayer Virtual Card Game",
+  "repository": "https://github.com/harryjjacobs/virtual-cards-client.git",
   "main": "app.js",
   "scripts": {
     "test": "test",
@@ -12,8 +13,12 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "^4.0.2",
-    "gulp-imagemin": "^3.0.0",
-    "gulp-rollup": "^2.17.0",
-    "gulp-useref": "^4.0.1"
+    "gulp-imagemin": "^7.1.0",
+    "gulp-useref": "^4.0.1",
+    "rollup-stream": "^1.24.1",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "dependencies": {
+    "ws": "^7.2.3"
   }
 }
