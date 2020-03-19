@@ -1,3 +1,3 @@
-import { hello } from "./utils/test";
+import { testView } from "./game/view/testview";
 
-hello();
+testView
