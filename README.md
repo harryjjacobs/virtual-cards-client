@@ -30,7 +30,7 @@ Updates to the state made by players
 
 ```
 {
-    type: one of 'U' (updated), 'M' (move), 'A' (added), 'D' (deleted) bro
+    type: one of 'U' (update), 'M' (move), 'A' (add), 'D' (delete) bro
     time: timestamp,
     stateHash: the hash of the full state after the operation is performed,
     ... additional operation specific parameters
