@@ -7,9 +7,13 @@ real life, the players determine the rules. Moves can
 be undone via a voting system - consensus must be reached.
 
 Consider looking at the lockstep protocol in future for other
-applications of the underlying game: (https://en.wikipedia.org/wiki/Lockstep_protocol)[https://en.wikipedia.org/wiki/Lockstep_protocol]
+applications where cheating could be a significant feaure (not
+such an issue in this game): [https://en.wikipedia.org/wiki/Lockstep_protocol](https://en.wikipedia.org/wiki/Lockstep_protocol)
 
-
+Clients can determine if they are out of sync with other players
+by using the hash sent in the state update messages. This is
+a hash of the full (public) game state for each player, which
+should be identical.
 
 # Messages
 
