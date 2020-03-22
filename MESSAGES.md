@@ -9,6 +9,8 @@ that have happened since the latest full state update can be
 restored into the full state. Need to be in special messages
 (maybe call them master_restore messages or something).
 
+The state must be a purely JSON object.
+
 # Messages
 
 ## Base message type
@@ -24,59 +26,71 @@ data: {
 
 ## Message Types
 
-### Heartbeat
-Broadcast by each client every 2 seconds.
-If the master becomes inactive, the server will send a
-`switch_master` message in order to transfer ownership 
-of the master to a different client. Any messages sent
-during the 
+### State Update
+Updates to the state made by players
 
-### Game State
+{
+    type: one of 'U' (updated), 'M' (move), 'A' (added), 'D' (deleted) bro
+    time: timestamp,
+    stateHash: the hash of the full state after the operation is performed,
+    ... additional operation specific parameters
+}
+
+#### Additional Parameters for M
+{
+    src: the id of the source object to move,
+    dst: the id of the destination object for this property,
+    key: key in dst to move to
+}
+
+#### Additional Parameters for A
+{
+    value: the property or value to add,
+    dst: the id of the destination object for this value,
+    key: key in dst to add to
+}
+
+### State Initialiser
 The current full state of the game being played.
 The current game must be able to be recreated from nothing
-from this message.
+from this message. Every object in the state must have a
+unique id.
 
-type: `game_state`
+type: `state_init`
 
 data:
 
 ```
-master: clientIdOfMaster
 players: [{
-        clientId: "",
-        name: "",
+        id: "a",
+        networkId: "xx-xx-xx",
+        name: "billybob",
         score: 0,
         // Any other player specific data
     }],
 hands: [{
             id: 0,
-            owner: clientId
+            owner: "a",
             faceDown: true,
             cards: [
-                "2C",
-                "9S"
+                { id: "2C" },
+                { id: "9S" }
             ]
         }]
 decks: [{
-        id: 0,
+        id: "zxcvbnm",
         can_pickup: true,
         can_place: false,
         faceDown: true,
         cards: [
-            "JH",
-            "AS",
-            "3D"
+            { id: "AS" },
+            { id: "AS" },
+            { id: "3D" }
         ]
     }]
-cards: [
-    { id: "AS" },
-    { id: "1S" },
-    { id: "2S" },
-    ...
-    ]
 ```
 
 ### Player Requests
 
-#### Pick card from hand
+#### Pick card from deck
 

@@ -1,3 +1,9 @@
-import { testView } from "./game/view/testview";
+import { TestView } from "./game/view/test-view";
+import { ClientController } from "./game/controller/client-controller";
 
-testView
+const controller = new ClientController();
+const view = new TestView();
+
+view.initialise(() => {
+    console.log(view.stage);
+});

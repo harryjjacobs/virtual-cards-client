@@ -1,13 +1,13 @@
-function BaseView() {
+export const BaseView = function() {
 	let cardStates = {
 
 	};
 
-	const addDeckToTable = deck => {
+	this.addDeckToTable = deck => {
 		// TODO: 
 	};
 
-	const moveCard = (from, to) => {
+	this.moveCard = (from, to) => {
 
 	};
 };
@@ -26,5 +26,3 @@ BaseView.prototype.initialise = function(callback) {
 		}
 	});
 };
-
-export const createBaseView = () => Object.create(BaseView.prototype);
