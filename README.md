@@ -1,19 +1,13 @@
 # virtual-cards-client
-Client for a distributed multiplayer virtual card game.
+Client for a multiplayer virtual card game.
 
 The aim for this project is to virtualise a deck of cards
 amongst players. There are no set rules of play - as in
 real life, the players determine the rules. Moves can
 be undone via a voting system - consensus must be reached.
 
-Consider looking at the lockstep protocol in future for other
-applications where cheating could be a significant feaure (not
-such an issue in this game): [https://en.wikipedia.org/wiki/Lockstep_protocol](https://en.wikipedia.org/wiki/Lockstep_protocol)
-
-Clients can determine if they are out of sync with other players
-by using the hash sent in the state update messages. This is
-a hash of the full (public) game state for each player, which
-should be identical.
+One of the clients will be a master. The master contains the full
+state, each client contains only their private state.
 
 # Messages
 
@@ -56,15 +50,9 @@ Updates to the state made by players
 ```
 
 ### State Initialiser
-Used to initialise the game. The first player in the room
-to send out this message controls the initial state.
-
-TODO: avoid discrepancy in who was the first player - take
-a vote amongst clients (no user involvement) to determine
-which was the first message - this system will also be used
-for other parts of the game. Note - could develop this
-further into turn based play rather than just the
-free-for-all it is at the moment.
+Used to initialise the game. The master (player that created
+the room) will send this message after all players have joined.
+It is the signal to begin the game.
 
 The state must be a purely JSON object.
 
@@ -74,26 +62,47 @@ data:
 
 ```
 players: [{
-        id: "a",
+        id: "1",
         networkId: "xx-xx-xx",
         name: "billybob",
+        score: 0,
+        // Any other player specific data
+    },
+    {
+        id: "2",
+        networkId: "xx-xx-xx",
+        name: "ken",
         score: 0,
         // Any other player specific data
     }],
 hands: [{
             id: 0,
-            owner: "a",
+            name: "hand 1",
+            owner: "1",
             faceDown: true,
-            cards: [
-                { id: "2C" },
-                { id: "9S" }
+            cards: [],
+            privateFields: [
+                "cards",
             ]
-        }]
+        }
+        {
+            id: 0,
+            name: "hand 1",
+            owner: "2",
+            faceDown: true,
+            cards: [],
+            privateFields: [
+                "cards",
+            ]
+        }],
 decks: [{
         id: "zxcvbnm",
         can_pickup: true,
         can_place: false,
         faceDown: true,
+        privateFields: {
+            "cards"
+        },
         cards: [
             { id: "AS" },
             { id: "AS" },
